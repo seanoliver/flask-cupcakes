@@ -84,7 +84,11 @@ def edit_cupcake(cupcake_id):
     cupcake.flavor = request.json.get('flavor', cupcake.flavor)
     cupcake.size = request.json.get('size', cupcake.size)
     cupcake.rating = request.json.get('rating', cupcake.rating)
-    cupcake.image = request.json.get('image', cupcake.image)
+    cupcake.image = request.json.get('image', cupcake.image) # TODO: change to default image URL rather than their old one (so they can delete an image if they want to)
+
+    # TODO: `.get()` checks if the key is present, not if there's a truthy value
+    # for the key, so need to add check if 'image' is truthy, and if not, fall
+    # back on default image.
 
     db.session.commit()
 
@@ -103,4 +107,4 @@ def delete_cupcake(cupcake_id):
     db.session.delete(cupcake)
     db.session.commit()
 
-    return (jsonify(deleted=cupcake_id), OK_STATUS_CODE)
+    return (jsonify(deleted=cupcake_id), OK_STATUS_CODE) 

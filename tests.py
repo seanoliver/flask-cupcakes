@@ -138,6 +138,9 @@ class CupcakeViewsTestCase(TestCase):
                 }
             })
 
+            # TODO: Add assertion for number of cupcakes to be equal to what we
+            # expect.
+
     def test_delete_cupcake(self):
         """
         Test deleting a cupcake.
@@ -149,3 +152,7 @@ class CupcakeViewsTestCase(TestCase):
 
             self.assertEqual(resp.status_code, 200)
             self.assertEqual(Cupcake.query.count(), 0)
+            # TODO: Check JSON response is correct (deleted: id)
+
+            # TODO: Add test cases for what if you try to edit or delete things
+            # that do not exist.

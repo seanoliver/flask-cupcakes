@@ -24,7 +24,7 @@ def get_all_cupcakes():
     Return JSON {cupcakes: [{id, flavor, size, rating, image}, ...]}
     """
 
-    cupcakes = Cupcake.query.all()
+    cupcakes = Cupcake.query.all() #TODO: query.order_by(~).all()
     serialized = [c.serialize() for c in cupcakes]
     return jsonify(cupcakes=serialized)
 
@@ -46,7 +46,8 @@ def create_cupcake():
     Create a new cupcake! and return JSON
     {cupcake: {id, flavor, size, rating, image}}
     """
-
+    #TODO: request.json directly in instantiation of the cupcake
+    #TODO: flavor = request.json["flavor"]
     flavor = request.json["flavor"]
     size = request.json["size"]
     rating = request.json["rating"]
@@ -65,3 +66,7 @@ def create_cupcake():
     serialized = new_cupcake.serialize()
 
     return (jsonify(cupcake=serialized), CREATE_STATUS_CODE)
+
+@app.patch("/api/cupcakes/<int:cupcake_id>")
+def edit_cupcake(cupcake_id):
+    cupcake = Cupcake.query.get_or_404(cupcake_id)

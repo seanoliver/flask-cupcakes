@@ -1,5 +1,5 @@
 """Flask app for Cupcakes"""
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from flask_debugtoolbar import DebugToolbarExtension
 from models import connect_db, db, Cupcake, DEFAULT_IMAGE
 
@@ -107,4 +107,9 @@ def delete_cupcake(cupcake_id):
     db.session.delete(cupcake)
     db.session.commit()
 
-    return (jsonify(deleted=cupcake_id), OK_STATUS_CODE) 
+    return (jsonify(deleted=cupcake_id), OK_STATUS_CODE)
+
+@app.get('/')
+def go_to_homepage():
+    """Render the template to the homepage"""
+    return render_template("homepage.html")
